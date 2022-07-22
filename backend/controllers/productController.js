@@ -55,3 +55,20 @@ exports.deleteProduct = async (req, res, next) => {
     message: "Product has been deleted",
   });
 };
+
+// getting single product
+
+exports.getSingleProduct = async (req, res, next) => {
+  const product = await Product.findById(req.params.id);
+  if (!product) {
+    res.status(500).json({
+      success: false,
+      message: "Product not found",
+    });
+  }
+ 
+  res.status(200).json({
+    success: true,
+    product,
+  });
+};
