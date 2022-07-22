@@ -66,7 +66,7 @@ exports.getSingleProduct = async (req, res, next) => {
       message: "Product not found",
     });
   }
- 
+
   res.status(200).json({
     success: true,
     product,
