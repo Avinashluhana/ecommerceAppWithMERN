@@ -1,4 +1,5 @@
 const Product = require("../models/productModel");
+const ApiFeatures = require("../utils/apifeatures");
 const catchAsyncError = require("../utils/catchAsyncError");
 const ErrorHandler = require("../utils/errorHandler");
 
@@ -14,6 +15,7 @@ exports.createProduct = catchAsyncError(async (req, res, next) => {
 // get All products
 
 exports.getAllProducts = catchAsyncError(async (req, res) => {
+  const apiFeatures = ApiFeatures(Product.find(), req.query);
   const products = await Product.find();
   if(!products){
     return next(new ErrorHandler("Product not found", 404));
