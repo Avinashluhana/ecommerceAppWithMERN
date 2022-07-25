@@ -30,12 +30,19 @@ class ApiFeatures {
 
     let queryStr = JSON.stringify(queryCopy);
 
-    queryStr = queryStr.replace(/\b(gt|gte|lt|lte)\b/g,(key) => `$${key}`);
+    queryStr = queryStr.replace(/\b(gt|gte|lt|lte)\b/g, (key) => `$${key}`);
+
+    // converting back to object
 
     this.query = this.query.find(JSON.parse(queryStr));
-    console.log(queryCopy)
+    console.log(queryCopy);
     return this;
-    
+  }
+  pagination(resultPerPage) {
+    const currentPage = Number(this.queryStr.page) || 1;
+    const skip = resultPerPage * (currentPage - 1);
+    this.query = this.query.limit(resultPerPage).skip(skip);
+    return this;
   }
 }
 

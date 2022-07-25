@@ -15,9 +15,11 @@ exports.createProduct = catchAsyncError(async (req, res, next) => {
 // get All products
 
 exports.getAllProducts = catchAsyncError(async (req, res, next) => {
+  const resultPerPage = 5;
   const apiFeatures = new ApiFeatures(Product.find(), req.query)
     .search()
-    .filter();
+    .filter()
+    .pagination(resultPerPage);
   let products = await apiFeatures.query;
   if (!products) {
     return next(new ErrorHandler("Product not found", 404));
