@@ -14,8 +14,9 @@ exports.registerUser = catchAsyncError(async (req, res, next) => {
       url: "dasdasdjskl",
     },
   });
-  res.status(200).json({
+  const token = user.getJwtToken();
+  res.status(201).json({
     success: true,
-    user,
+    token,
   });
 });
