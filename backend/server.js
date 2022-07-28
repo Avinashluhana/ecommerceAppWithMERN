@@ -16,7 +16,7 @@ dotenv.config({ path: "backend/config/config.env" });
 connectDatabase();
 const PORT = 5000;
 const server = app.listen(PORT, () => {
-  console.log(`server is working on port`);
+  console.log(`server is working on port 5000`);
 });
 
 // Unhandled Promise Rejection
