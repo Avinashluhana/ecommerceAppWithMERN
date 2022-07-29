@@ -4,6 +4,7 @@ const User = require("../models/userModel");
 const sendToken = require("../utils/jwtToken");
 const sendEmail = require("../utils/sendEmail");
 const crypto = require("crypto");
+const { triggerAsyncId } = require("async_hooks");
 
 exports.registerUser = catchAsyncError(async (req, res, next) => {
   const { name, email, password } = req.body;
@@ -126,4 +127,14 @@ exports.resetPassword = catchAsyncError(async (req, res, next) => {
 
   await user.save();
   sendToken(user, 200, res);
+});
+
+// getting user details
+
+exports.getUserDetails = catchAsyncError(async (req, res, next) => {
+  const user = await User.findById(req.user.id);
+  res.status(200).json({
+    success: true,
+    user,
+  });
 });
