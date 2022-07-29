@@ -2,6 +2,7 @@ const catchAsyncError = require("../utils/catchAsyncError");
 const ErrorHandler = require("../utils/errorHandler");
 const User = require("../models/userModel");
 const sendToken = require("../utils/jwtToken");
+const sendEmail = require("../utils/sendEmail");
 
 exports.registerUser = catchAsyncError(async (req, res, next) => {
   const { name, email, password } = req.body;
@@ -55,7 +56,7 @@ exports.logout = catchAsyncError(async (req, res, next) => {
 
 // forget password
 
-exports.forgetPassword = catchAsyncError(async (req, res, nex) => {
+exports.forgetPassword = catchAsyncError(async (req, res, next) => {
   const user = await User.findOne({ email: req.body.email });
 
   if (!user) {
@@ -87,5 +88,9 @@ exports.forgetPassword = catchAsyncError(async (req, res, nex) => {
   } catch (error) {
     user.resetPasswordToken = undefined;
     user.resetPasswordExpire = undefined;
+
+    await user.save({validateBeforeSave: false});
+
+    return next(new ErrorHandler(error.message, 500));
   }
 });
