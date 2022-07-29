@@ -159,4 +159,45 @@ exports.updatePassword = catchAsyncError(async (req, res, next) => {
 
 // update User profile
 
+exports.updateProfile = catchAsyncError(async (req, res, next) => {
+  const userDetails = {
+    name: req.body.name,
+    email: req.body.email,
+  };
+  const user = await User.findByIdAndUpdate(req.user.id, userDetails, {
+    new: true,
+    runValidators: true,
+    userFindAndModify: false,
+  });
 
+  res.status(200).json({
+    success: true,
+    user,
+  });
+});
+
+// get all users (admin)
+
+exports.getAllUsers = catchAsyncError(async (req, res, next) => {
+  const users = await User.find();
+  res.status(200).json({
+    success: true,
+    users,
+  });
+});
+
+// get single user
+
+exports.getUser = catchAsyncError(async (req, res, next) => {
+  const user = await User.findById(req.params.id);
+
+  if (!user) {
+    return next(
+      new ErrorHandler(`User doesn't exits with id ${req.params.id}`)
+    );
+  }
+  res.status(200).json({
+    success: true,
+    user,
+  });
+});
