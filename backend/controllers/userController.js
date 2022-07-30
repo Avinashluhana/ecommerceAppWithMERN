@@ -239,6 +239,6 @@ exports.deleteUser = catchAsyncError(async (req, res, next) => {
   const message = `${user.name} User has been deleted`;
   res.status(200).json({
     success: true,
-    message
+    message,
   });
 });
