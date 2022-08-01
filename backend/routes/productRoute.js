@@ -9,7 +9,7 @@ const {
   getAllReviews,
   deleteReview,
 } = require("../controllers/productController");
-const { isAuthenticatedUser, authorizedRole } = require("../middlewares/auth");
+const { isAuthenticatedUser, authorizedRole } = require("../middleware/auth");
 
 const router = express.Router();
 

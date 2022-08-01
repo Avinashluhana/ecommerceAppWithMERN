@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const orderSchema = (mongoose.Schema = {
+const orderSchema = new mongoose.Schema({
   shippingInfo: {
     address: {
       type: String,
@@ -10,10 +10,12 @@ const orderSchema = (mongoose.Schema = {
       type: String,
       required: true,
     },
+
     state: {
       type: String,
       required: true,
     },
+
     country: {
       type: String,
       required: true,
@@ -71,20 +73,24 @@ const orderSchema = (mongoose.Schema = {
     type: Date,
     required: true,
   },
-  itemPrice: {
+  itemsPrice: {
     type: Number,
+    required: true,
     default: 0,
   },
   taxPrice: {
     type: Number,
+    required: true,
     default: 0,
   },
   shippingPrice: {
     type: Number,
+    required: true,
     default: 0,
   },
   totalPrice: {
     type: Number,
+    required: true,
     default: 0,
   },
   orderStatus: {

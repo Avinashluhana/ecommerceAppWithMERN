@@ -13,7 +13,7 @@ const {
   updateUserRole,
   deleteUser,
 } = require("../controllers/userController");
-const { isAuthenticatedUser, authorizedRole } = require("../middlewares/auth");
+const { isAuthenticatedUser, authorizedRole } = require("../middleware/auth");
 
 const router = express.Router();
 
