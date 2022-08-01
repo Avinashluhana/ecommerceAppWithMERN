@@ -46,7 +46,7 @@ const productSchema = mongoose.Schema({
       user: {
         type: mongoose.Schema.ObjectId,
         ref: "user",
-        required: true
+        required: true,
       },
       name: {
         type: String,
@@ -61,12 +61,11 @@ const productSchema = mongoose.Schema({
         required: true,
       },
     },
-
   ],
   user: {
     type: mongoose.Schema.ObjectId,
     ref: "user",
-    required: true
+    required: true,
   },
   createAt: {
     type: Date,
