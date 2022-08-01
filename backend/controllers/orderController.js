@@ -3,6 +3,8 @@ const ApiFeatures = require("../utils/apifeatures");
 const catchAsyncError = require("../utils/catchAsyncError");
 const ErrorHandler = require("../utils/errorHandler");
 
+// create order
+
 exports.newOrder = catchAsyncError(async (req, res, next) => {
   const {
     shippingInfo,
@@ -27,6 +29,21 @@ exports.newOrder = catchAsyncError(async (req, res, next) => {
   });
 
   res.status(201).json({
+    success: true,
+    order,
+  });
+});
+
+exports.getSingleOrder = catchAsyncError(async (req, res, next) => {
+  const order = await Order.findById(req.params.id).populate(
+    "user",
+    "name email"
+  );
+  if (!order) {
+    return next(new ErrorHandler("No order has been place ", 404));
+  }
+
+  res.status(200).json({
     success: true,
     order,
   });
