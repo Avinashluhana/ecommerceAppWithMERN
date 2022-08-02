@@ -2,6 +2,7 @@ const Order = require("../models/orderModel");
 const ApiFeatures = require("../utils/apifeatures");
 const catchAsyncError = require("../utils/catchAsyncError");
 const ErrorHandler = require("../utils/errorHandler");
+const Product = require("../models/productModel");
 
 // create order
 
@@ -59,3 +60,51 @@ exports.myOrders = catchAsyncError(async (req, res, next) => {
     orders,
   });
 });
+
+// get all orders -- Admin
+
+exports.getAllOrders = catchAsyncError(async (req, res, next) => {
+  const orders = await Order.find();
+
+  let totalAmount = 0;
+  orders.forEach((order) => {
+    totalAmount += order.totalPrice;
+  });
+
+  res.status(200).json({
+    success: true,
+    orders,
+    totalAmount,
+  });
+});
+
+// update order status --Admin
+
+exports.UpdateStatus = catchAsyncError(async (req, res, next) => {
+  const order = await Order.findByID(req.params.id);
+
+  if (order.status === "Delivered") {
+    return next(new ErrorHandler("Order already has been delivered", 400));
+  }
+  order.orderItems.forEach(async (order) => {
+    await updateStock(order.product, order.quantity);
+  });
+  order.orderStatus = req.body.status;
+
+  if (req.body.status === "Delivered") {
+    order.deliveredAt = Date.now();
+  }
+
+  await order.save({ validateBeforeSave: false });
+  res.status(200).json({
+    success: true,
+  });
+});
+
+// function for updating the stock from product 
+
+async function updateStock(id, quantity) {
+  const product = await Product.findById(id);
+  product.stock -= quantity;
+  await product.save({ validateBeforeSave: false });
+}
