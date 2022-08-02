@@ -1,9 +1,10 @@
-import { useEffect } from "react";
+import { Fragment, useEffect } from "react";
 import "./App.css";
 import Header from "./component/layout/Header/Header";
-import { BrowserRouter as Router } from "react-router-dom";
 import WebFont from "webfontloader";
 import Footer from "./component/layout/Footer/Footer";
+import Home from "./component/Home/Home";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 const App = () => {
   useEffect(() => {
@@ -15,12 +16,10 @@ const App = () => {
   }, []);
 
   return (
-    <div className="App">
-      <Router>
-        <Header />
-        <Footer />
-      </Router>
-    </div>
+    <Fragment>
+      <Home />
+      <Footer />
+    </Fragment>
   );
 };
 
