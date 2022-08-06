@@ -4,16 +4,13 @@ import "./Home.css";
 import Product from "./Product";
 import MetaData from "../layout/MetaData";
 import { getProduct } from "../../Redux/actions/productAction";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-const product = {
-  name: "T-shirt",
-  image: [{ url: "http://i.ibb.co/DRST11N/1.webp" }],
-  price: "200",
-  _id: "av",
-};
 const Home = () => {
   const dispatch = useDispatch();
+  const { loading, error, products, productCount } = useSelector(
+    (state) => state.products
+  );
   useEffect(() => {
     dispatch(getProduct());
   }, [dispatch]);
@@ -30,14 +27,7 @@ const Home = () => {
       </div>
       <h2 className="homeHeading">Featured Products</h2>
       <div className="container" id="container">
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
+        {products && products.map((product) => <Product product={product} />)}
       </div>
     </Fragment>
   );
