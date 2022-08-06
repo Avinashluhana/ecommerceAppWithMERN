@@ -6,15 +6,20 @@ import MetaData from "../layout/MetaData";
 import { getProduct } from "../../Redux/actions/productAction";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../layout/Loader/Loader";
+import { useAlert } from "react-alert";
 
 const Home = () => {
+  const alert = useAlert();
   const dispatch = useDispatch();
   const { loading, error, products, productCount } = useSelector(
     (state) => state.products
   );
   useEffect(() => {
+    if (error) {
+      return alert.error(error);
+    }
     dispatch(getProduct());
-  }, [dispatch]);
+  }, [dispatch, error]);
   return (
     <Fragment>
       {loading ? (
