@@ -1,8 +1,10 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 // import { CgMouse } from "react-icons/all";
 import "./Home.css";
 import Product from "./Product";
 import MetaData from "../layout/MetaData";
+import { getProduct } from "../../Redux/actions/productAction";
+import { useDispatch } from "react-redux";
 
 const product = {
   name: "T-shirt",
@@ -11,6 +13,10 @@ const product = {
   _id: "av",
 };
 const Home = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getProduct());
+  }, [dispatch]);
   return (
     <Fragment>
       <MetaData title="ECOMMERCE" />
@@ -31,7 +37,6 @@ const Home = () => {
         <Product product={product} />
         <Product product={product} />
         <Product product={product} />
-
         <Product product={product} />
       </div>
     </Fragment>

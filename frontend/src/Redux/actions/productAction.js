@@ -12,7 +12,7 @@ export const getProduct = () => async (dispatch) => {
     const { data } = await axios.get("/api/v1/products");
     dispatch({
       type: ALL_PRODUCTS_SUCCESS,
-      data,
+      payload: data,
     });
   } catch (error) {
     dispatch({
