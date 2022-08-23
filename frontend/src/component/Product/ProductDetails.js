@@ -7,21 +7,21 @@ import {
 } from "../../Redux/actions/productAction";
 import { useParams } from "react-router-dom";
 const ProductDetails = () => {
+  const params = useParams();
   const dispatch = useDispatch();
   const { product, loading, error } = useSelector(
     (state) => state.productDetails
   );
-  const {id} = useParams;
   useEffect(() => {
-    dispatch(getProductDetails(id));
-  }, [dispatch,id]);
+    dispatch(getProductDetails(params.id));
+  }, [dispatch,params.id]);
   // const alert = useAlert();
   return (
     <Fragment>
       <div className="ProductDetails">
         <div>
           <Carousel>
-            {/* {product.images &&
+            {product.images &&
               product.images.map((item, i) => (
                 <img
                   className="CarouselImage"
@@ -29,7 +29,7 @@ const ProductDetails = () => {
                   src={item.url}
                   alt={`${i} Slide`}
                 />
-              ))} */}
+              ))}
           </Carousel>
         </div>
       </div>

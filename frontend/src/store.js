@@ -9,9 +9,6 @@ import {
 
 } from "./Redux/reducer/productReducer";
 
-
-
-
 const reducer = combineReducers({
   products: productReducer,
   productDetails: productDetailsReducer,
