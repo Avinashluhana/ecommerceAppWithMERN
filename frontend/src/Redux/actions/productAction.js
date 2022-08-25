@@ -7,7 +7,6 @@ import {
   PRODUCT_DETAILS_SUCCESS,
 } from "../constants/productConstants";
 import axios from "axios";
-import {useParams} from "react-router-dom"
 export const getProduct = () => async (dispatch) => {
   try {
     dispatch({ type: ALL_PRODUCTS_REQUEST });
@@ -26,15 +25,12 @@ export const getProduct = () => async (dispatch) => {
 export const getProductDetails = (id) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_DETAILS_REQUEST });
-    // const { id } = useParams();
-
 
     const { data } = await axios.get(`/api/v1/singleproduct/${id}`);
 
     dispatch({
       type: PRODUCT_DETAILS_SUCCESS,
       payload: data.product,
-      
     });
   } catch (error) {
     dispatch({
