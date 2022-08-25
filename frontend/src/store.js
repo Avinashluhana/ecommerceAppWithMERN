@@ -6,7 +6,6 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import {
   productDetailsReducer,
   productReducer,
-
 } from "./Redux/reducer/productReducer";
 
 const reducer = combineReducers({
@@ -16,7 +15,6 @@ const reducer = combineReducers({
 });
 
 const initialState = {};
-
 
 const middleware = [thunk];
 

@@ -8,7 +8,7 @@ import {
   CLEAR_ERRORS,
 } from "../constants/productConstants";
 
-export const productReducer = (state = { products: [] }, action) => {
+export const productReducer = (state = { products: []}, action) => {
   switch (action.type) {
     case ALL_PRODUCTS_REQUEST:
       return {
@@ -20,7 +20,7 @@ export const productReducer = (state = { products: [] }, action) => {
       return {
         loading: false,
         products: action.payload.products,
-        productCount: action.payload.CountProduct,
+        productsCount: action.payload.productsCount,
       };
     case ALL_PRODUCTS_FAIL:
       return {
@@ -37,7 +37,6 @@ export const productReducer = (state = { products: [] }, action) => {
       return state;
   }
 };
-
 
 export const productDetailsReducer = (state = { product: {} }, action) => {
   switch (action.type) {
