@@ -1,15 +1,16 @@
 import React, { Fragment, useState } from "react";
-import "./Search.css"
+import "./Search.css";
 
-const Search = ({ history }) => {
+const Search = (props) => {
   const [keyword, setKeyword] = useState("");
 
   const searchSubmitHandler = (e) => {
     e.preventDefault();
+
     if (keyword.trim()) {
-      history.push(`/products/${keyword}`);
+      props.history.push(`/search/${keyword}`);
     } else {
-      history.push("/products");
+      props.history.push("/products");
     }
   };
 

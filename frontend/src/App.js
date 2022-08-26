@@ -20,13 +20,14 @@ const App = () => {
 
   return (
     <div className="App">
-      <BrowserRouter>
+      <BrowserRouter >
         <Header />
         <Routes>
           <Route path="/" element={<Home />} exact />
           <Route path="/about" element={<About />} exact />
           <Route path="/product/:id" element={<ProductDetails />} exact />
           <Route path="/products" element={<Products />} exact />
+          <Route path="/products/:keyword" element={<Products />} exact />
           <Route path="/search" element={<Search />} exact />
         </Routes>
         <Footer />
