@@ -2,26 +2,33 @@ import React, { Fragment } from "react";
 import "./Products.css";
 import Loader from "../layout/Loader/Loader";
 import { useDispatch, useSelector } from "react-redux";
-import { clearErrors, getProduct } from "../../Redux/actions/productAction";
+import { getProduct } from "../../Redux/actions/productAction";
 import { useEffect } from "react";
 import ProductCard from "../Home/ProductCard";
 import { useParams } from "react-router-dom";
 import Pagination from "react-js-pagination";
+import Slider from "@material-ui/core/Slider";
+import Typography from "@material-ui/core/Typography";
 
 import { useState } from "react";
 const Products = () => {
   const dispatch = useDispatch();
-  const { products, loading, error, productsCount, resultPerPage } =
-    useSelector((state) => state.products);
+  const { products, loading, productsCount, resultPerPage } = useSelector(
+    (state) => state.products
+  );
   const [currentPage, setCurrentPage] = useState(1);
+  const [price, setPrice] = useState([0, 25000]);
   const setCurrentPageNo = (e) => {
     setCurrentPage(e);
+  };
+  const priceHandler = (event, newPrice) => {
+    setPrice(newPrice);
   };
   const params = useParams();
   const keyword = params.keyword;
   useEffect(() => {
-    dispatch(getProduct(keyword, currentPage));
-  }, [dispatch, keyword, currentPage]);
+    dispatch(getProduct(keyword, currentPage, price));
+  }, [dispatch, keyword, currentPage, price]);
   return (
     <Fragment>
       {loading ? (
@@ -34,6 +41,17 @@ const Products = () => {
               products.map((product) => (
                 <ProductCard key={product._id} product={product} />
               ))}
+          </div>
+          <div className="filterBox">
+            <Typography>Price</Typography>
+            <Slider
+              value={price}
+              onChange={priceHandler}
+              valueLabelDisplay="auto"
+              aria-labelledby="range-slider"
+              min={0}
+              max={25000}
+            />
           </div>
           {resultPerPage < productsCount && (
             <div className="paginationBox">

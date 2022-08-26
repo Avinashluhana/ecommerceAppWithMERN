@@ -8,10 +8,10 @@ import {
   CLEAR_ERRORS
 } from "../constants/productConstants";
 import axios from "axios";
-export const getProduct = (keyword ="", currentPage) => async (dispatch) => {
+export const getProduct = (keyword ="", currentPage, price=[0, 25000]) => async (dispatch) => {
   try {
     dispatch({ type: ALL_PRODUCTS_REQUEST });
-    const { data } = await axios.get(`/api/v1/products?keyword=${keyword}&page=${currentPage}`);
+    const { data } = await axios.get(`/api/v1/products?keyword=${keyword}&page=${currentPage}&{price[0]}&price[lte]=${price[1]}`);
     dispatch({
       type: ALL_PRODUCTS_SUCCESS,
       payload: data,
