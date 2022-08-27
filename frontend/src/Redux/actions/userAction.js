@@ -3,7 +3,7 @@ import {
   LOGIN_FAIL,
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
-  CLEAR_ERRORS
+  CLEAR_ERRORS,
 } from "../constants/userConstants";
 
 export const login = (email, password) => async (dispatch) => {
@@ -22,5 +22,5 @@ export const login = (email, password) => async (dispatch) => {
 };
 
 export const clearErrors = () => async (dispatch) => {
-    dispatch({ type: CLEAR_ERRORS });
-  };
+  dispatch({ type: CLEAR_ERRORS });
+};

@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { login, clearErrors } from "../../Redux/actions/userAction";
 import { useAlert } from "react-alert";
 
-const LoginSignup = () => {
+const LoginSignup = ({ history }) => {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [user, setUser] = useState({
@@ -25,7 +25,9 @@ const LoginSignup = () => {
   const loginTab = useRef(null);
   const registerTab = useRef(null);
   const switcherTab = useRef(null);
-  const { loading, error } = useSelector((state) => state.user);
+  const { loading, error, isAuthenticated } = useSelector(
+    (state) => state.user
+  );
 
   const registerDataChange = (e) => {
     if (e.target.name === "avatar") {
@@ -78,8 +80,11 @@ const LoginSignup = () => {
     if (error) {
       alert.error(error);
       dispatch(clearErrors());
+      if (isAuthenticated) {
+        history.push("/accounts");
+      }
     }
-  }, [dispatch, error, alert]);
+  }, [dispatch, error, alert, isAuthenticated, history]);
   return (
     <Fragment>
       {loading ? (

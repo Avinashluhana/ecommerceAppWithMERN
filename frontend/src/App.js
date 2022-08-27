@@ -21,7 +21,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <BrowserRouter >
+      <BrowserRouter>
         <Header />
         <Routes>
           <Route path="/" element={<Home />} exact />
@@ -29,9 +29,8 @@ const App = () => {
           <Route path="/product/:id" element={<ProductDetails />} exact />
           <Route path="/products" element={<Products />} exact />
           <Route path="/products/:keyword" element={<Products />} exact />
-          <Route path="/search" element={<Search />}  />
+          <Route path="/search" element={<Search />} />
           <Route path="/login" element={<LoginSignup />} exact />
-
         </Routes>
         <Footer />
       </BrowserRouter>
