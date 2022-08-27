@@ -2,18 +2,20 @@ import React, { Fragment } from "react";
 import "./Products.css";
 import Loader from "../layout/Loader/Loader";
 import { useDispatch, useSelector } from "react-redux";
-import { getProduct } from "../../Redux/actions/productAction";
+import { getProduct, clearErrors } from "../../Redux/actions/productAction";
 import { useEffect } from "react";
 import ProductCard from "../Home/ProductCard";
 import { useParams } from "react-router-dom";
 import Pagination from "react-js-pagination";
 import Slider from "@material-ui/core/Slider";
 import Typography from "@material-ui/core/Typography";
+import {useAlert} from "react-alert"
 
 import { useState } from "react";
 const Products = () => {
   const dispatch = useDispatch();
-  const { products, loading, productsCount, resultPerPage } = useSelector(
+  const alert = useAlert;
+  const { products, loading, productsCount, resultPerPage, error } = useSelector(
     (state) => state.products
   );
   const [currentPage, setCurrentPage] = useState(1);
@@ -29,8 +31,12 @@ const Products = () => {
   const params = useParams();
   const keyword = params.keyword;
   useEffect(() => {
+    if(error){
+      alert.error(error);
+      dispatch(clearErrors());
+    }
     dispatch(getProduct(keyword, currentPage, price, category, ratings));
-  }, [dispatch, keyword, currentPage, price, category, ratings]);
+  }, [dispatch, keyword, currentPage, price, category, ratings, error, alert]);
   const categories = [
     "Laptop",
     "Footwear",
