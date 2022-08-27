@@ -18,6 +18,8 @@ const Products = () => {
   );
   const [currentPage, setCurrentPage] = useState(1);
   const [price, setPrice] = useState([0, 25000]);
+  const [category, setCategory] = useState();
+  const [ratings, setRatings] = useState(0);
   const setCurrentPageNo = (e) => {
     setCurrentPage(e);
   };
@@ -27,8 +29,17 @@ const Products = () => {
   const params = useParams();
   const keyword = params.keyword;
   useEffect(() => {
-    dispatch(getProduct(keyword, currentPage, price));
-  }, [dispatch, keyword, currentPage, price]);
+    dispatch(getProduct(keyword, currentPage, price, category, ratings));
+  }, [dispatch, keyword, currentPage, price, category, ratings]);
+  const categories = [
+    "Laptop",
+    "Footwear",
+    "Bottom",
+    "Tops",
+    "Attire",
+    "Camera",
+    "SmartPhones",
+  ];
   return (
     <Fragment>
       {loading ? (
@@ -52,7 +63,34 @@ const Products = () => {
               min={0}
               max={25000}
             />
+            <Typography>Categories</Typography>
+            <ul className="categoryBox">
+              {categories.map((category) => (
+                <li
+                  className="category-link"
+                  key={category}
+                  onClick={() => setCategory(category)}
+                >
+                  {category}
+                </li>
+              ))}
+            </ul>
+
+            <fieldset>
+              <Typography component="legend">Ratings Above</Typography>
+              <Slider
+                value={ratings}
+                onChange={(e, newRating) => {
+                  setRatings(newRating);
+                }}
+                aria-labelledby="continuous-slider"
+                valueLabelDisplay="auto"
+                min={0}
+                max={5}
+              />
+            </fieldset>
           </div>
+
           {resultPerPage < productsCount && (
             <div className="paginationBox">
               <Pagination
