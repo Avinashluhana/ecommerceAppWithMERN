@@ -11,6 +11,7 @@ import { useParams } from "react-router-dom";
 import { Rating } from "@material-ui/lab";
 import Loader from "../layout/Loader/Loader";
 import { useAlert } from "react-alert";
+import MetaData from "../layout/MetaData";
 
 const ProductDetails = () => {
   const params = useParams();
@@ -40,6 +41,8 @@ const ProductDetails = () => {
         <Loader />
       ) : (
         <Fragment>
+          <MetaData title={product.name} />
+
           <div className="ProductDetails">
             <div>
               <Carousel>
