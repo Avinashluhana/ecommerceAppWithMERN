@@ -6,7 +6,7 @@ import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
 import FaceIcon from "@material-ui/icons/Face";
 import { useDispatch, useSelector } from "react-redux";
-import { login, clearErrors } from "../../Redux/actions/userAction";
+import { login, clearErrors, register } from "../../Redux/actions/userAction";
 import { useAlert } from "react-alert";
 
 const LoginSignup = ({ history }) => {
@@ -25,7 +25,7 @@ const LoginSignup = ({ history }) => {
   const loginTab = useRef(null);
   const registerTab = useRef(null);
   const switcherTab = useRef(null);
-  const { loading, error, isAuthenticated } = useSelector(
+  const { loading, error, isAuthenticated } = useSelector(  
     (state) => state.user
   );
 
@@ -54,6 +54,7 @@ const LoginSignup = ({ history }) => {
     myForm.set("email", email);
     myForm.set("password", password);
     myForm.set("avatar", avatar);
+    dispatch(register(myForm));
   };
   const loginSubmit = (e) => {
     e.preventDefault();
