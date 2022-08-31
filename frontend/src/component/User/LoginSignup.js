@@ -8,8 +8,9 @@ import FaceIcon from "@material-ui/icons/Face";
 import { useDispatch, useSelector } from "react-redux";
 import { login, clearErrors, register } from "../../Redux/actions/userAction";
 import { useAlert } from "react-alert";
+import { useNavigate } from "react-router-dom";
 
-const LoginSignup = ({ history }) => {
+const LoginSignup = () => {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [user, setUser] = useState({
@@ -25,9 +26,10 @@ const LoginSignup = ({ history }) => {
   const loginTab = useRef(null);
   const registerTab = useRef(null);
   const switcherTab = useRef(null);
-  const { loading, error, isAuthenticated } = useSelector(  
+  const { loading, error, isAuthenticated } = useSelector(
     (state) => state.user
   );
+  const navigate = useNavigate();
 
   const registerDataChange = (e) => {
     if (e.target.name === "avatar") {
@@ -59,6 +61,7 @@ const LoginSignup = ({ history }) => {
   const loginSubmit = (e) => {
     e.preventDefault();
     dispatch(login(loginEmail, loginPassword));
+    navigate("/products")
   };
 
   const switchTabs = (e, tab) => {
@@ -82,10 +85,10 @@ const LoginSignup = ({ history }) => {
       alert.error(error);
       dispatch(clearErrors());
       if (isAuthenticated) {
-        history.push("/accounts");
+        navigate("/accounts");
       }
     }
-  }, [dispatch, error, alert, isAuthenticated, history]);
+  }, [dispatch, error, alert, isAuthenticated, navigate]);
   return (
     <Fragment>
       {loading ? (
