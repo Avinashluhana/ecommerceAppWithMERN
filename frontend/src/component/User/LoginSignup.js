@@ -32,7 +32,7 @@ const LoginSignup = () => {
   const navigate = useNavigate();
 
   const registerDataChange = (e) => {
-    if (e.target.name === "avatar") {
+    if (e.target.name === "avatar") { 
       const reader = new FileReader();
 
       reader.onload = () => {
