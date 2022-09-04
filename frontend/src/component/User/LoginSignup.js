@@ -57,6 +57,7 @@ const LoginSignup = () => {
     myForm.set("password", password);
     myForm.set("avatar", avatar);
     dispatch(register(myForm));
+    navigate("/")
   };
   const loginSubmit = (e) => {
     e.preventDefault();
