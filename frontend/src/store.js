@@ -14,7 +14,11 @@ import {
   forgotPassword,
 } from "./Redux/reducer/userReducer";
 import { cartReducer } from "./Redux/reducer/cartReducer";
-import { myOrdersReducer, newOrderReducer } from "./Redux/reducer/orderReducer";
+import {
+  myOrdersReducer,
+  newOrderReducer,
+  orderDetailsReducer,
+} from "./Redux/reducer/orderReducer";
 
 const reducer = combineReducers({
   products: productReducer,
@@ -25,7 +29,8 @@ const reducer = combineReducers({
   cart: cartReducer,
   review: newReviewReducer,
   newOrder: newOrderReducer,
-  myOrders: myOrdersReducer
+  myOrders: myOrdersReducer,
+  orderDetails: orderDetailsReducer,
 });
 
 const initialState = {
@@ -33,7 +38,7 @@ const initialState = {
     cartItems: localStorage.getItem("cartItems")
       ? JSON.parse(localStorage.getItem("cartItems"))
       : [],
-      shippingInfo: localStorage.getItem("shippingInfo")
+    shippingInfo: localStorage.getItem("shippingInfo")
       ? JSON.parse(localStorage.getItem("shippingInfo"))
       : {},
   },

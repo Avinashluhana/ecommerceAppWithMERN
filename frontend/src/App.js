@@ -30,6 +30,8 @@ import axios from "axios";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import MyOrders from "./component/Orders/MyOrders";
+import OrderDetails from "./component/Orders/OrderDetails";
+
 
 const App = () => {
   const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -83,6 +85,7 @@ const App = () => {
             )}
             <Route path="/success" element={<OrderSuccess />} exact />
             <Route path="/orders" element={<MyOrders />} exact />
+            <Route path="/order/:id" element={<OrderDetails />} exact />
           </Route>
           <Route path="/password/forgot" element={<ForgotPassword />} exact />
           <Route

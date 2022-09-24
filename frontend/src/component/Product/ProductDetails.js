@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   getProductDetails,
   clearErrors,
-  newReview
+  newReview,
 } from "../../Redux/actions/productAction";
 import { useParams } from "react-router-dom";
 import { Rating } from "@material-ui/lab";
@@ -64,13 +64,13 @@ const ProductDetails = () => {
     (state) => state.productDetails
   );
   const alert = useAlert();
-    useEffect(() => {
-      if (error) {
-        alert.error(error);
-        dispatch(clearErrors());
-      }
-      dispatch(getProductDetails(params.id));
-    }, [dispatch, params.id, alert, error]);
+  useEffect(() => {
+    if (error) {
+      alert.error(error);
+      dispatch(clearErrors());
+    }
+    dispatch(getProductDetails(params.id));
+  }, [dispatch, params.id, alert, error]);
   const options = {
     size: "large",
     value: product.ratings,
