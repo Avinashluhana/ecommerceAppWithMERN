@@ -8,7 +8,7 @@ import FaceIcon from "@material-ui/icons/Face";
 import { useDispatch, useSelector } from "react-redux";
 import { login, clearErrors, register } from "../../Redux/actions/userAction";
 import { useAlert } from "react-alert";
-import { useNavigate } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 
 const LoginSignup = () => {
   const [loginEmail, setLoginEmail] = useState("");
@@ -32,7 +32,7 @@ const LoginSignup = () => {
   const navigate = useNavigate();
 
   const registerDataChange = (e) => {
-    if (e.target.name === "avatar") { 
+    if (e.target.name === "avatar") {
       const reader = new FileReader();
 
       reader.onload = () => {
@@ -47,6 +47,7 @@ const LoginSignup = () => {
       setUser({ ...user, [e.target.name]: e.target.value });
     }
   };
+
   const registerSubmit = (e) => {
     e.preventDefault();
 
@@ -57,12 +58,11 @@ const LoginSignup = () => {
     myForm.set("password", password);
     myForm.set("avatar", avatar);
     dispatch(register(myForm));
-    navigate("/")
+    navigate("/");
   };
   const loginSubmit = (e) => {
     e.preventDefault();
     dispatch(login(loginEmail, loginPassword));
-    navigate("/products")
   };
 
   const switchTabs = (e, tab) => {
@@ -81,6 +81,7 @@ const LoginSignup = () => {
       loginTab.current.classList.add("shiftToLeft");
     }
   };
+
   useEffect(() => {
     if (error) {
       alert.error(error);
