@@ -21,6 +21,8 @@ import {
   DialogTitle,
   Button,
 } from "@material-ui/core";
+import { NEW_REVIEW_RESET } from "../../Redux/constants/productConstants";
+
 const ProductDetails = () => {
   const params = useParams();
   const dispatch = useDispatch();
@@ -43,6 +45,9 @@ const ProductDetails = () => {
     dispatch(addItemsToCart(params.id, quantity));
     alert.success("Item added to Cart");
   };
+  const { success, error: reviewError } = useSelector(
+    (state) => state.review
+  );
 
   const reviewSubmitHandler = () => {
     const myForm = new FormData();
@@ -69,8 +74,17 @@ const ProductDetails = () => {
       alert.error(error);
       dispatch(clearErrors());
     }
+    if (reviewError) {
+      alert.error(reviewError);
+      dispatch(clearErrors());
+    }
+
+    if (success) {
+      alert.success("Review Submitted Successfully");
+      dispatch({ type: NEW_REVIEW_RESET });
+    }
     dispatch(getProductDetails(params.id));
-  }, [dispatch, params.id, alert, error]);
+  }, [dispatch, params.id, alert, error, reviewError, success]);
   const options = {
     size: "large",
     value: product.ratings,
@@ -119,7 +133,12 @@ const ProductDetails = () => {
                     <input readOnly type="number" value={quantity} />
                     <button onClick={increaseQuantity}>+</button>
                   </div>
-                  <button onClick={addToCart}>Add to Cart</button>
+                  <button
+                    disabled={product.Stock < 1 ? true : false}
+                    onClick={addToCart}
+                  >
+                    Add to Cart
+                  </button>
                 </div>
                 <p>
                   Status:
@@ -133,7 +152,7 @@ const ProductDetails = () => {
                 Description : <p>{product.description}</p>
               </div>
 
-              <button className="submitReview">Submit Review</button>
+              <button onClick={submitReviewToggle} className="submitReview">Submit Review</button>
             </div>
           </div>
           <h3 className="reviewsHeading">REVIEWS</h3>
