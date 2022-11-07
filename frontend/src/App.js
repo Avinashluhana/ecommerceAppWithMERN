@@ -32,7 +32,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import MyOrders from "./component/Orders/MyOrders";
 import OrderDetails from "./component/Orders/OrderDetails";
 import Dashboard from "./component/Admin/Dashboard";
-
+import ProductList from "./component/Admin/ProductList.js";
 
 const App = () => {
   const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -70,8 +70,12 @@ const App = () => {
             <Route path="/account" element={<Profile />} exact />
             <Route path="/" element={<Home />} exact />
             <Route path="/me/update" element={<UpdateProfile />} exact />
+            {isAuthenticated && user.role === "admin" && (
+              <Route path="/shipping" element={<Shipping />} exact />
+            )}
+            <Route path="/admin/products" element={<ProductList />} exact />
+
             <Route path="/password/update" element={<UpdatePassword />} exact />
-            <Route path="/shipping" element={<Shipping />} exact />
             <Route path="/order/confirm" element={<ConfirmOrder />} exact />
             {stripeApiKey && (
               <Route
@@ -87,9 +91,15 @@ const App = () => {
             <Route path="/success" element={<OrderSuccess />} exact />
             <Route path="/orders" element={<MyOrders />} exact />
             <Route path="/order/:id" element={<OrderDetails />} exact />
-            <Route path="/admin/dashboard" element={<Dashboard />} exact />
-
+            <Route path="/admin/orders" element={<Dashboard />} exact />
+            <Route path="/admin/users" element={<Dashboard />} exact />
           </Route>
+          {/* admin Routes */}
+
+          <Route element={<ProtectedRoute isAdmin={true} />}>
+            <Route path="/admin/dashboard" element={<Dashboard />} exact />
+          </Route>
+
           <Route path="/password/forgot" element={<ForgotPassword />} exact />
           <Route
             path="/password/reset/:token"

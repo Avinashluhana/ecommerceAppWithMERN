@@ -10,11 +10,15 @@ import {
   NEW_REVIEW_SUCCESS,
   NEW_REVIEW_FAIL,
   NEW_REVIEW_RESET,
+  ADMIN_PRODUCT_REQUEST,
+  ADMIN_PRODUCT_SUCCESS,
+  ADMIN_PRODUCT_FAIL,
 } from "../constants/productConstants";
 
 export const productReducer = (state = { products: [] }, action) => {
   switch (action.type) {
     case ALL_PRODUCTS_REQUEST:
+      case ADMIN_PRODUCT_REQUEST:
       return {
         loading: true,
         products: [],
@@ -28,7 +32,13 @@ export const productReducer = (state = { products: [] }, action) => {
         resultPerPage: action.payload.resultPerPage,
         filteredProductsCount: action.payload.filteredProductsCount,
       };
+      case ADMIN_PRODUCT_SUCCESS:
+        return {
+          loading: false,
+          products: action.payload,
+        };
     case ALL_PRODUCTS_FAIL:
+      case ADMIN_PRODUCT_FAIL:
       return {
         loading: false,
         error: action.payload,
